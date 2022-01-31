@@ -41,6 +41,14 @@ io.on('connection', (socket) => {
   socket.on('addItem', (data) => {
       dataList.push(data);
       console.log(dataList);
-      socket.broadcast.emit('addItem', [data]);
+      if (data === null) {
+        console.log('clearing');
+        dataList=[];
+        socket.broadcast.emit('addItem', null);
+      }
+      else {
+        socket.broadcast.emit('addItem', [data]);
+      }
+      
   });
 });

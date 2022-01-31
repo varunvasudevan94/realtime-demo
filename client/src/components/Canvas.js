@@ -24,8 +24,14 @@ export  class Canvas extends Component
   }
 
   componentDidMount() {
-    wsClient.on('addItem', item => this.setState({items: [...this.state.items, ...item]}));
-  }
+    wsClient.on('addItem', item => {
+    if (item === null) {
+      this.setState({items: []});
+    } else {
+      this.setState({items: [...this.state.items, ...item]});
+    }
+  })
+}
 
   render() {
     const { tool, size, color, fill, fillColor, items } = this.state;
@@ -53,6 +59,14 @@ export  class Canvas extends Component
           <div className="options" style={{marginBottom:20}}>
             <label htmlFor="">color: </label>
             <input type="color" value={color} onChange={(e) => this.setState({color: e.target.value})} />
+          </div>
+          <div className="clear" style={{marginBottom:20}}>
+            <button onClick={(e) => {
+              wsClient.emit('addItem', null);
+              this.setState({items: []});
+              }} >
+              Clear
+            </button>
           </div>
         </div>
       </div>
