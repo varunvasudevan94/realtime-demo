@@ -32,9 +32,15 @@ server.listen(app.get('port'), () => {
 
 io.origins('*:*')
 
+var dataList = [];
+
 io.on('connection', (socket) => {
+  
+  socket.emit('addItem', dataList);
+  console.log("hello");
   socket.on('addItem', (data) => {
-      console.log(data);
-      socket.broadcast.emit('addItem', data);
+      dataList.push(data);
+      console.log(dataList);
+      socket.broadcast.emit('addItem', [data]);
   });
 });

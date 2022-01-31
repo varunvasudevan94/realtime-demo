@@ -24,14 +24,14 @@ export  class Canvas extends Component
   }
 
   componentDidMount() {
-    wsClient.on('addItem', item => this.setState({items: this.state.items.concat([item])}));
+    wsClient.on('addItem', item => this.setState({items: [...this.state.items, ...item]}));
   }
 
   render() {
     const { tool, size, color, fill, fillColor, items } = this.state;
     return (
       <div>
-        <h3>My Meeting</h3>
+        <h3>My Meeting - Spoonshot</h3>
         <div style={{float:'left', marginRight:20}}>
           <SketchPad
             width={800}
