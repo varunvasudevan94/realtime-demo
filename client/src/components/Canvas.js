@@ -37,7 +37,7 @@ export  class Canvas extends Component
     const { tool, size, color, fill, fillColor, items } = this.state;
     return (
       <div>
-        <h3>My Meeting - Spoonshot</h3>
+        <h3>My Board</h3>
         <div style={{float:'left', marginRight:20}}>
           <SketchPad
             width={800}
